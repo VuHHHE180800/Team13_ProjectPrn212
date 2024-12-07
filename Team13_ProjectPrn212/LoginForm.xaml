@@ -5,8 +5,32 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Team13_ProjectPrn212"
         mc:Ignorable="d"
-        Title="LoginForm" Height="450" Width="800">
-    <Grid>
-        
+         Title="Đăng nhập" Height="340" Width="550" WindowStartupLocation="CenterScreen" >
+    <Grid Background="Black" Margin="0,0,0,-6">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.5*" />
+            <RowDefinition Height="5*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Background="Black">
+            <TextBlock Margin="7,7,0,0" HorizontalAlignment="Center" FontWeight="Bold" FontSize="30" Foreground="#F7E860">Đăng nhập</TextBlock>
+        </Grid>
+        <StackPanel Grid.Row="1" Margin="10" HorizontalAlignment="Center">
+            <Border Background="Black" BorderThickness="3,0,0,3">
+                <WrapPanel Margin="0,15,0,0" HorizontalAlignment="Stretch">
+                    <TextBlock Width="70" FontSize="28" Foreground="#F7E860" VerticalAlignment="Center">👤</TextBlock>
+                    <TextBox Name="txtTaiKhoan" FontSize="22" Width="300" HorizontalAlignment="Stretch"  />
+                </WrapPanel>
+            </Border>
+            <Border Margin="0,5,0,0" Background="Black" BorderThickness="3,0,0,3">
+                <WrapPanel Margin="0,15,0,0" HorizontalAlignment="Stretch">
+                    <TextBlock Width="70" FontSize="28" Foreground="#F7E860" VerticalAlignment="Center">🔒</TextBlock>
+                    <PasswordBox Name="passMatKhau" FontSize="22" HorizontalAlignment="Stretch" Width="300" />
+                </WrapPanel>
+            </Border>
+            <Button Name="btnDangNhap" Foreground="Black" IsDefault="True" Background="#F7E860" FontSize="25" HorizontalAlignment="Center" Height="50" Margin="0,15,0,0" Width="220" Click="BtnDangNhap_Click">Đăng nhập</Button>
+        </StackPanel>
     </Grid>
+
+
 </Window>

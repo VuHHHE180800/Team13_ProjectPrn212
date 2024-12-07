@@ -9,12 +9,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\Key-Yellow.png" />
     <None Remove="Images\product1.jpg" />
     <None Remove="Images\product2.jpg" />
     <None Remove="Images\product3.jpg" />
     <None Remove="Images\product4.jpg" />
     <None Remove="Images\product5.jpg" />
     <None Remove="Images\product6.jpg" />
+    <None Remove="Images\User-Yellow.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -28,6 +30,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="Images\Key-Yellow.png" />
     <Resource Include="Images\product1.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
@@ -36,6 +39,7 @@
     <Resource Include="Images\product4.jpg" />
     <Resource Include="Images\product5.jpg" />
     <Resource Include="Images\product6.jpg" />
+    <Resource Include="Images\User-Yellow.png" />
   </ItemGroup>
 
   <ItemGroup>

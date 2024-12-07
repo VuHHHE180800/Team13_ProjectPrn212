@@ -20,5 +20,12 @@ namespace Team13_ProjectPrn212
         {
             InitializeComponent();
         }
+
+        private void btnThoat_Click(object sender, RoutedEventArgs e)
+        {
+            LoginForm loginForm = new LoginForm();
+            loginForm.Show();
+            this.Close();
+        }
     }
 }

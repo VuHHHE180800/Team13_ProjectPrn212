@@ -1,9 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -42,12 +45,12 @@ namespace Team13_ProjectPrn212
             filterProduct();
         }
 
-        private void btnLapHoaDon_Click(object sender, RoutedEventArgs e)
+        private void btnTaoMoi_Click(object sender, RoutedEventArgs e)
         {
+            clearForm();
 
         }
-
-        private void btnTaoMoi_Click(object sender, RoutedEventArgs e)
+        private void clearForm()
         {
             txtTenKhachHang.Text = string.Empty;
             txtDiaChi.Text = string.Empty;
@@ -58,9 +61,7 @@ namespace Team13_ProjectPrn212
             txtDonGia.Text = string.Empty;
             txtSoLuongMua.Text = "1";
             cart.Clear();
-
         }
-
         private void btnTinhTien_Click(object sender, RoutedEventArgs e)
         {
 var selectedProduct = ProductDataGrid.SelectedItem as Product;
@@ -180,8 +181,79 @@ var selectedProduct = ProductDataGrid.SelectedItem as Product;
         {
             DateOnly today = DateOnly.FromDateTime(DateTime.Now);
             dpNgayLap.Text = today.ToString();
+            Employee employee = Application.Current.Properties["employee"] as Employee;
+            txtNVLapHoaDon.Text = employee.EmployeeName;
+        }
+        private bool checkOrder()
+        {
+            bool kt = true;
+            if (txtTenKhachHang.Text == "" || txtDiaChi.Text == "" || txtSoDienThoai.Text == "")
+            {
+                MessageBox.Show("Thông tin khách hàng chưa đủ, vui lòng kiểm tra lại !", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                kt = false;
+            }
+            if (!cart.Any())
+            {
+                MessageBox.Show("Bạn chưa có sản phẩm nào trong giỏ hàng!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                kt = false;
+            }
+            string phone= txtSoDienThoai.Text;
+            //if(Regex.IsMatch(phone, @"^\d{10,11}$"))
+            //{
+            //    MessageBox.Show("Số điện thoại khách hàng đang không hợp lệ ! Vui lòng điền số điện thoại gồm 10 đến 11 chữ số!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            //    kt = false;
+            //}
+            return kt;
+        }
+        private void btnLapHoaDon_Click(object sender, RoutedEventArgs e)
+        {
+            if (checkOrder())
+            {
+                try
+                {
+                    Employee employee = Application.Current.Properties["employee"] as Employee;
+
+                    Order order = new Order
+                    {
+                        CustomerName = txtTenKhachHang.Text,
+                        CustomerPhonenumber = txtSoDienThoai.Text,
+                        CustomerAddress = txtDiaChi.Text,
+                        OrderDate = DateOnly.FromDateTime(DateTime.Now),
+                        StatusId = 1,
+                        EmployeeId = employee.EmployeeId
+                    };
+
+                    db.Orders.Add(order);
+
+                    foreach (var item in cart)
+                    {
+                        OrderDetail od = new OrderDetail
+                        {
+                            OrderId = order.OrderId,
+                            ProductId = item.ProductId,
+                            TotalQuantity = item.Quantity,
+                            TotalPrice = item.TotalPrice
+                        };
+                        db.OrderDetails.Add(od);
+                    }
+
+                    db.SaveChanges();
+                    MessageBox.Show("Lập hóa đơn thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    clearForm();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lập hóa đơn thất bại!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+
         }
 
-        
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            this.Close();
+            LoginForm loginForm = new LoginForm();
+            loginForm.ShowDialog();
+        }
     }
 }

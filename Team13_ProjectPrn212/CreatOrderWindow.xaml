@@ -156,6 +156,6 @@
             </DataGrid>
 
         </GroupBox>
-        <Button Grid.Column="4" Content="Thoát" HorizontalAlignment="Left" Margin="84,193,0,0" Grid.Row="1" VerticalAlignment="Top" Height="49" Width="122"/>
+        <Button Grid.Column="4" Content="Đăng xuất" HorizontalAlignment="Left" Margin="84,193,0,0" Grid.Row="1" VerticalAlignment="Top" Height="49" Width="122" Click="Button_Click"/>
     </Grid>
 </Window>

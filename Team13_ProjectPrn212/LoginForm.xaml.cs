@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Team13_ProjectPrn212.Models;
 
 namespace Team13_ProjectPrn212
 {
@@ -19,9 +20,34 @@ namespace Team13_ProjectPrn212
     /// </summary>
     public partial class LoginForm : Window
     {
+        private Team13QlbhContext db = new Team13QlbhContext();
         public LoginForm()
         {
             InitializeComponent();
+        }
+
+        private void BtnDangNhap_Click(object sender, RoutedEventArgs e)
+        {
+            string username = txtTaiKhoan.Text;
+            string password = passMatKhau.Password;
+            Employee employee = db.Employees.FirstOrDefault(e => e.Username == username && e.Password == password);
+            if (employee != null)
+            {
+                Application.Current.Properties["employee"] = employee;
+                MessageBox.Show("Đăng nhập thành công !", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                if (employee.RoleId == 1)
+                {
+                    MainWindow mainWindow = new MainWindow();
+                    mainWindow.Show();
+                    this.Close();
+                }
+                else if (employee.RoleId == 2)
+                {
+                    CreatOrderWindow creatOrderWindow = new CreatOrderWindow();
+                    creatOrderWindow.Show();
+                    this.Close();
+                }
+            }
         }
     }
 }

@@ -5,8 +5,41 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Team13_ProjectPrn212"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Màn hình chính" Height="454" Width="452" WindowStartupLocation="CenterScreen">
+    <Grid Background="Black">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.5*" />
+            <RowDefinition Height="300" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <StackPanel>
+                <TextBlock Name="tblock" Margin="7,7,0,0" HorizontalAlignment="Left" FontWeight="Bold" FontSize="15" Foreground="#F7E860"></TextBlock>
+                <TextBlock FontWeight="Bold" FontSize="25" Foreground="#F7E860" Width="244"><Run Text="Quản Lý Bán Hàng"/></TextBlock>
+            </StackPanel>
+        </Grid>
+        <StackPanel Grid.Row="1" Background="#F7E860">
+            <GroupBox BorderThickness="1" Foreground="Black" BorderBrush="Black" Header="Menu" HorizontalAlignment="Left" Margin="10,10" Height="279" Width="426">
+                <Grid HorizontalAlignment="Left" Height="231" VerticalAlignment="Top" Width="253">
+                    <Label FontWeight="DemiBold" Content="Chức năng chính"
+                           Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" />
+                    <StackPanel>
+                        <Button Name="btnLoaiSP" FontWeight="DemiBold" Width="120" FontSize="15" Foreground="Black" Content="Loại sản phẩm" HorizontalAlignment="Left"
+                                Margin="10,40,0,0" VerticalAlignment="Top" />
+                        <Button Name="btnSanPham" FontWeight="DemiBold" Width="120" FontSize="15" Foreground="Black" Content="Sản phẩm" HorizontalAlignment="Left"
+                                Margin="10,15,0,0" VerticalAlignment="Top" />
+                        <Button Name="btnDonHang" FontWeight="DemiBold" Width="120" FontSize="15" Foreground="Black" Content="Đơn Hàng" HorizontalAlignment="Left"
+                                Margin="10,15,0,0" VerticalAlignment="Top" />
+                        <Button Name="btnBieuDo" FontWeight="DemiBold" Width="120" FontSize="15" Foreground="Black" Content="Biểu đồ" HorizontalAlignment="Left"
+                                Margin="10,15,0,0" VerticalAlignment="Top" />
+                        <Button Name="btnThoat" FontWeight="DemiBold" Width="120" FontSize="15" Foreground="Black" Content="Đăng xuất" HorizontalAlignment="Left"
+                                Margin="10,15,0,0" VerticalAlignment="Top" Click="btnThoat_Click" />
+                    </StackPanel>
 
+                </Grid>
+
+            </GroupBox>
+
+        </StackPanel>
     </Grid>
 </Window>
