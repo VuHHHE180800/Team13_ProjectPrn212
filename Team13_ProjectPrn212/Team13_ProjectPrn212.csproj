@@ -9,6 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Images\product1.jpg" />
+    <None Remove="Images\product2.jpg" />
+    <None Remove="Images\product3.jpg" />
+    <None Remove="Images\product4.jpg" />
+    <None Remove="Images\product5.jpg" />
+    <None Remove="Images\product6.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -16,6 +25,17 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\product1.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Images\product2.jpg" />
+    <Resource Include="Images\product3.jpg" />
+    <Resource Include="Images\product4.jpg" />
+    <Resource Include="Images\product5.jpg" />
+    <Resource Include="Images\product6.jpg" />
   </ItemGroup>
 
   <ItemGroup>
