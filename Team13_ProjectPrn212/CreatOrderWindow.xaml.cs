@@ -60,16 +60,17 @@ namespace Team13_ProjectPrn212
             txtTenSanPham.Text = string.Empty;
             txtDonGia.Text = string.Empty;
             txtSoLuongMua.Text = "1";
+            txtSoLuongConLai.Text = string.Empty;
             cart.Clear();
         }
         private void btnTinhTien_Click(object sender, RoutedEventArgs e)
         {
-var selectedProduct = ProductDataGrid.SelectedItem as Product;
+        var selectedProduct = ProductDataGrid.SelectedItem as Product;
 
-    if (selectedProduct != null)
-    {
+        if (selectedProduct != null)
+        {
          // Kiểm tra số lượng nhập từ TextBox
-        int soluong;
+            int soluong;
                 try
                 {
                     soluong = int.Parse(txtSoLuongMua.Text);
@@ -99,7 +100,7 @@ var selectedProduct = ProductDataGrid.SelectedItem as Product;
                     Quantity = soluong,
                     Price = selectedProduct.Price
                 });
-                txtThanhTien.Text = cart.Sum(item =>  item.Price).ToString(); // Câp nhật TextBox txtThanhTien
+                txtThanhTien.Text = cart.Sum(cart =>  cart.TotalPrice).ToString(); // Câp nhật TextBox txtThanhTien
             }
 
             // Làm mới DataGrid hiển thị giỏ hàng
@@ -198,11 +199,11 @@ var selectedProduct = ProductDataGrid.SelectedItem as Product;
                 kt = false;
             }
             string phone= txtSoDienThoai.Text;
-            //if(Regex.IsMatch(phone, @"^\d{10,11}$"))
-            //{
-            //    MessageBox.Show("Số điện thoại khách hàng đang không hợp lệ ! Vui lòng điền số điện thoại gồm 10 đến 11 chữ số!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-            //    kt = false;
-            //}
+            if (!Regex.IsMatch(phone, @"^\d{10,11}$"))
+            {
+                MessageBox.Show("Số điện thoại khách hàng đang không hợp lệ ! Vui lòng điền số điện thoại gồm 10 đến 11 chữ số!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                kt = false;
+            }
             return kt;
         }
         private void btnLapHoaDon_Click(object sender, RoutedEventArgs e)
@@ -224,9 +225,11 @@ var selectedProduct = ProductDataGrid.SelectedItem as Product;
                     };
 
                     db.Orders.Add(order);
+                    db.SaveChanges();
 
                     foreach (var item in cart)
                     {
+                        var product = db.Products.SingleOrDefault(p => p.ProductId == item.ProductId);
                         OrderDetail od = new OrderDetail
                         {
                             OrderId = order.OrderId,
@@ -235,6 +238,7 @@ var selectedProduct = ProductDataGrid.SelectedItem as Product;
                             TotalPrice = item.TotalPrice
                         };
                         db.OrderDetails.Add(od);
+                        product.Quantity-= item.Quantity;
                     }
 
                     db.SaveChanges();
@@ -243,7 +247,7 @@ var selectedProduct = ProductDataGrid.SelectedItem as Product;
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Lập hóa đơn thất bại!", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show("Lập hóa đơn thất bại!" + ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
 
@@ -251,9 +255,9 @@ var selectedProduct = ProductDataGrid.SelectedItem as Product;
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
             LoginForm loginForm = new LoginForm();
-            loginForm.ShowDialog();
+            loginForm.Show();
+            this.Close();
         }
     }
 }
