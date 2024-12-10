@@ -230,9 +230,9 @@
                             <WrapPanel Margin="0,10,0,0">
                                 <TextBlock Foreground="#F7E860" Text="Trạng thái" FontSize="14"/>
                                 <ComboBox Name="cbbTrangThaiDonHang" Margin="8,0,0,0" Width="200" Height="25" VerticalAlignment="Top" d:LayoutOverrides="Height" FontSize="14">
-                                    <ComboBoxItem Name="cbbItemMoi" Content="Mới tạo"></ComboBoxItem>
-                                    <ComboBoxItem Name="cbbItemDaThanhToan" Content="Đã thanh toán"></ComboBoxItem>
-                                    <ComboBoxItem Name="cbbItemHuy" Content="Đã hủy"></ComboBoxItem>
+                                    <ComboBoxItem Name="cbbItemMoi" Content="Pending"></ComboBoxItem>
+                                    <ComboBoxItem Name="cbbItemDaThanhToan" Content="Completed"></ComboBoxItem>
+                                    <ComboBoxItem Name="cbbItemHuy" Content="Cancelled"></ComboBoxItem>
                                 </ComboBox>
                             </WrapPanel>
 
