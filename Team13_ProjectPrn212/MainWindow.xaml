@@ -29,7 +29,7 @@
                         <Button Name="btnSanPham" FontWeight="DemiBold" Width="120" FontSize="15" Foreground="Black" Content="Sản phẩm" HorizontalAlignment="Left"
                                 Margin="10,15,0,0" VerticalAlignment="Top" />
                         <Button Name="btnDonHang" FontWeight="DemiBold" Width="120" FontSize="15" Foreground="Black" Content="Đơn Hàng" HorizontalAlignment="Left"
-                                Margin="10,15,0,0" VerticalAlignment="Top" Click="btnDonHang_Click" />
+                                Margin="10,15,0,0" VerticalAlignment="Top" />
                         <Button Name="btnBieuDo" FontWeight="DemiBold" Width="120" FontSize="15" Foreground="Black" Content="Biểu đồ" HorizontalAlignment="Left"
                                 Margin="10,15,0,0" VerticalAlignment="Top" />
                         <Button Name="btnThoat" FontWeight="DemiBold" Width="120" FontSize="15" Foreground="Black" Content="Đăng xuất" HorizontalAlignment="Left"
