@@ -25,12 +25,10 @@ namespace QuanLyBanHang
         {
             InitializeComponent();
 
-            // Initialize your DbContext and DAOs here
-            // Replace YourDbContext with your actual DbContext class
             _context = new Team13QlbhContext();
             _orderDAO = new OrderDAO(_context);
             _orderDetailDAO = new OrderDetailDAO(_context);
-            _employeeDAO = new EmployeeDAO(_context); // Assuming you have this DAO
+            _employeeDAO = new EmployeeDAO(_context);
             _orderStatusDAO = new OrderStatusDAO(_context);
         }
 
