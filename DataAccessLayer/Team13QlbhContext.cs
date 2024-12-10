@@ -172,6 +172,7 @@ public partial class Team13QlbhContext : DbContext
             entity.Property(e => e.Description)
                 .HasColumnType("text")
                 .HasColumnName("description");
+            entity.Property(e => e.Gender).HasColumnName("Gender");
             entity.Property(e => e.Photo)
                 .HasMaxLength(200)
                 .HasColumnName("photo");
