@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using QuanLyBanHang;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -26,6 +27,12 @@ namespace Team13_ProjectPrn212
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
             this.Close();
+        }
+
+        private void btnDonHang_Click(object sender, RoutedEventArgs e)
+        {
+            DonHang donHang = new DonHang();
+            donHang.Show();
         }
     }
 }

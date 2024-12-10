@@ -30,6 +30,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BusinessObjects\BusinessObjects.csproj" />
+    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Images\Key-Yellow.png" />
     <Resource Include="Images\product1.jpg">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

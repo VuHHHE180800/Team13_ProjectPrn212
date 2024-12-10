@@ -8,9 +8,9 @@ namespace DataAccessLayer
 {
     public class EmployeeDAO
     {
-        private readonly DbContext _context;
+        private readonly Team13QlbhContext _context;
 
-        public EmployeeDAO(DbContext context)
+        public EmployeeDAO(Team13QlbhContext context)
         {
             _context = context;
         }

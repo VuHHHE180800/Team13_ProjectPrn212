@@ -8,9 +8,9 @@ namespace DataAccessLayer
 {
     public class OrderStatusDAO
     {
-        private readonly DbContext _context;
+        private readonly Team13QlbhContext _context;
 
-        public OrderStatusDAO(DbContext context)
+        public OrderStatusDAO(Team13QlbhContext context)
         {
             _context = context;
         }

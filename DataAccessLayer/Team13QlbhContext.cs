@@ -40,7 +40,7 @@ public partial class Team13QlbhContext : DbContext
         IConfiguration configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
                 .AddJsonFile("appsettings.json", true, true).Build();
-        return configuration["ConnectionStrings:DefaultConnectionString"];
+        return configuration["ConnectionStrings:DefaultConnection"];
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
