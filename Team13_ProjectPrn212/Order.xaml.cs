@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjects;
 using DataAccessLayer;
+using Team13_ProjectPrn212;
 
 namespace QuanLyBanHang
 {
@@ -95,9 +96,8 @@ namespace QuanLyBanHang
 
         private void BtnTaoDonHang_Click(object sender, RoutedEventArgs e)
         {
-            // Open create order window or dialog
-            // You'll need to implement this method
-            MessageBox.Show("Chức năng tạo đơn hàng sẽ được thêm sau.", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+            CreatOrderWindow co = new CreatOrderWindow();
+            co.Show();
         }
 
         private void BtnTaiDanhSachXoa_Click(object sender, RoutedEventArgs e)
