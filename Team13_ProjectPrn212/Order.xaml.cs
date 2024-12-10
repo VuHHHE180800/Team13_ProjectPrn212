@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using BusinessModel;
 using DataAccessLayer;
 using Team13_ProjectPrn212.Models;
+using Team13_ProjectPrn212;
 
 namespace QuanLyBanHang
 {
@@ -96,7 +97,7 @@ namespace QuanLyBanHang
 
         private void BtnTaoDonHang_Click(object sender, RoutedEventArgs e)
         {
-            BanHang banHang = new BanHang();
+            CreatOrderWindow banHang = new CreatOrderWindow();
             banHang.Show();
         }
 
