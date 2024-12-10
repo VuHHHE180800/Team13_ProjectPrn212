@@ -50,13 +50,13 @@ namespace DataAccessLayer
             _context.SaveChanges();
         }
 
-        public void DeleteOrderDetail(int orderId, int productId)
+        public void DeleteOrderDetail(int orderId)
         {
-            var orderDetail = GetOrderDetailByOrderIdAndProductId(orderId, productId);
+            var orderDetail = GetOrderDetailsByOrderId(orderId)?.FirstOrDefault(); // Lấy đối tượng đầu tiên
             if (orderDetail != null)
             {
-                _context.Set<OrderDetail>().Remove(orderDetail);
-                _context.SaveChanges();
+                _context.Set<OrderDetail>().Remove(orderDetail); // Xóa đối tượng
+                _context.SaveChanges(); // Lưu thay đổi
             }
         }
 

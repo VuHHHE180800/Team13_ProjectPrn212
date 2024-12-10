@@ -47,12 +47,19 @@ namespace DataAccessLayer
 
         public void DeleteOrder(int orderId)
         {
-            var order = GetOrderById(orderId);
+            var orderDetails = _context.OrderDetails.Where(od => od.OrderId == orderId).ToList();
+            if (orderDetails.Any())
+            {
+                _context.OrderDetails.RemoveRange(orderDetails); // Xóa các chi tiết đơn hàng
+            }
+
+            var order = _context.Orders.FirstOrDefault(o => o.OrderId == orderId);
             if (order != null)
             {
-                _context.Set<Order>().Remove(order);
-                _context.SaveChanges();
+                _context.Orders.Remove(order); // Xóa đơn hàng
             }
+
+            _context.SaveChanges(); // Lưu thay đổi
         }
 
         public List<Order> GetOrdersByCustomerName(string customerName)
