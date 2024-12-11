@@ -4,6 +4,7 @@ using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -242,6 +243,9 @@ namespace Team13_ProjectPrn212
                     }
 
                     db.SaveChanges();
+
+                    ExportOrderToFile(order);
+
                     MessageBox.Show("Lập hóa đơn thành công!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                     clearForm();
                 }
@@ -258,6 +262,49 @@ namespace Team13_ProjectPrn212
             LoginForm loginForm = new LoginForm();
             loginForm.Show();
             this.Close();
+        }
+
+
+        //Tạo hóa đơn
+        private void ExportOrderToFile(Order order)
+        {
+            // Xác định đường dẫn thư mục Order
+            string projectDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            string orderDirectory = System.IO.Path.Combine(projectDirectory, "Order");
+
+            // Tạo thư mục nếu chưa tồn tại
+            Directory.CreateDirectory(orderDirectory);
+
+            // Tên file là OrderID
+            string fileName = $"Order_{order.OrderId}.txt";
+            string filePath = System.IO.Path.Combine(orderDirectory, fileName);
+
+            // Xây dựng nội dung file
+            StringBuilder orderContent = new StringBuilder();
+            orderContent.AppendLine("CHI TIẾT ĐƠN HÀNG");
+            orderContent.AppendLine($"Mã đơn hàng: {order.OrderId}");
+            orderContent.AppendLine($"Ngày lập: {order.OrderDate}");
+            orderContent.AppendLine($"Nhân viên: {txtNVLapHoaDon.Text}");
+            orderContent.AppendLine("\nTHÔNG TIN KHÁCH HÀNG");
+            orderContent.AppendLine($"Tên khách hàng: {order.CustomerName}");
+            orderContent.AppendLine($"Số điện thoại: {order.CustomerPhonenumber}");
+            orderContent.AppendLine($"Địa chỉ: {order.CustomerAddress}");
+
+            orderContent.AppendLine("\nCÁC SẢN PHẨM TRONG ĐƠN");
+            decimal totalOrderValue = 0;
+            foreach (var item in cart)
+            {
+                orderContent.AppendLine($"- {item.ProductName}: {item.Quantity} x {item.Price:N0} = {item.TotalPrice:N0} VND");
+                totalOrderValue += item.TotalPrice;
+            }
+
+            orderContent.AppendLine($"\nTổng giá trị đơn hàng: {totalOrderValue:N0} VND");
+
+            // Ghi file
+            File.WriteAllText(filePath, orderContent.ToString());
+
+            // Thông báo vị trí file (tùy chọn)
+            MessageBox.Show($"Đã xuất file đơn hàng tại: {filePath}", "Xuất File", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }
