@@ -32,14 +32,12 @@ namespace Team13_ProjectPrn212.Admin
 
         private void btnReportManagement_Click(object sender, RoutedEventArgs e)
         {
+            ManagerEmployees employees = new ManagerEmployees();
+            employees.Show();
 
             this.Hide();
         }
-        private void btnSettings_Click(object sender, RoutedEventArgs e)
-        {
-            //frAdminContent.Navigate(new SettingsPage());
-        }
-
+       
         private void txtAdminFullName_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             // Xử lý sự kiện khi người dùng nhấn vào tên admin
