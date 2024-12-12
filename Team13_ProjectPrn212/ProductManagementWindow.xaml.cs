@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +14,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Team13_ProjectPrn212.Models;
+using static System.Net.Mime.MediaTypeNames;
+using Application = System.Windows.Application;
+using Path = System.IO.Path;
 
 namespace Team13_ProjectPrn212
 {
@@ -127,19 +132,54 @@ namespace Team13_ProjectPrn212
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            
-            var product= new Product();
-            product.ProductName = DetailProductName.Text;
-            product.BrandId = int.Parse(DetailBrand.SelectedValue.ToString());
-            product.CategoryId = int.Parse(DetailCategory.SelectedValue.ToString());
-            product.Price = int.Parse(DetailPrice.Text);
-            product.Quantity = int.Parse(DetailQuantity.Text);
-            product.Description = DetailDescription.Text;
 
-            _dbContext.Products.Add(product);
-            _dbContext.SaveChanges();
-            LoadProducts();
-            MessageBox.Show("Product added successfully.");
+            if (string.IsNullOrWhiteSpace(DetailProductName.Text) ||
+        DetailBrand.SelectedValue == null ||
+        DetailCategory.SelectedValue == null ||
+        string.IsNullOrWhiteSpace(DetailPrice.Text) ||
+        string.IsNullOrWhiteSpace(DetailQuantity.Text) ||
+        string.IsNullOrWhiteSpace(DetailDescription.Text))
+            {
+                MessageBox.Show("All fields must be filled in.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Validate integer fields
+            if (!int.TryParse(DetailPrice.Text, out int price) || price < 0)
+            {
+                MessageBox.Show("Price must be a valid non-negative number.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            if (!int.TryParse(DetailQuantity.Text, out int quantity) || quantity < 0)
+            {
+                MessageBox.Show("Quantity must be a valid non-negative number.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            // Create and populate the product object
+            var product = new Product
+            {
+                ProductName = DetailProductName.Text,
+                BrandId = int.Parse(DetailBrand.SelectedValue.ToString()),
+                CategoryId = int.Parse(DetailCategory.SelectedValue.ToString()),
+                Price = price,
+                Quantity = quantity,
+                Description = DetailDescription.Text
+            };
+
+            // Save the product to the database
+            try
+            {
+                _dbContext.Products.Add(product);
+                _dbContext.SaveChanges();
+                LoadProducts(); // Refresh the product list
+                MessageBox.Show("Product added successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An error occurred while saving the product: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
@@ -250,6 +290,60 @@ namespace Team13_ProjectPrn212
             DetailDescription.Clear();
             DetailPhoto.Source = null;
         }
+        public String UploadImages()
+        {
+            String saveInSQlPath = "";
 
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Image files|*.bmg;*.jpg;*.png";
+
+            String fullPath = Path.GetFullPath("Images");  //Lấy ra absolute path của folder Image trong EmployeeWPF project
+
+            //Tách chuỗi để lấy đúng tên nơi lưu trữ: bỏ đoạn "bin\Debug\net8.0-windows\" - 24 kí tự, trong fullpath
+            int lastIndex = 0;
+            for (int i = 0; i < fullPath.Length; i++)
+            {
+                if (fullPath[i] == '\\')
+                {
+                    lastIndex = i;
+                }
+            }
+            int startSubStringIndex = lastIndex - 24;
+            String filePath = fullPath.Substring(0, startSubStringIndex) + "Images";
+
+            if (openFileDialog.ShowDialog() == true)
+            {
+                string images_uri = openFileDialog.FileName;
+                DetailPhoto.Source = new BitmapImage(new Uri(images_uri));
+
+
+                string source = openFileDialog.FileName;
+                FileInfo fileInfo = new FileInfo(source);
+                String destination = filePath + "\\" + Path.GetFileName(source);
+                try
+                {
+                    fileInfo.CopyTo(destination);  //Copy file vào nơi lưu trữ
+
+                }
+                catch
+                {
+                    //Phòng trường hợp trùng tên file
+                    saveInSQlPath = Path.GetFileName(source);
+                }
+                //C:\Users\Dell\source\repos\PRN_Project\EmployeeWPF\EImages\
+
+                //Tách chuỗi Images để lưu trong database
+                saveInSQlPath = Path.GetFileName(source);
+
+            }
+            return saveInSQlPath;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string uri_after_upload_file;
+            uri_after_upload_file = UploadImages();
+            Application.Current.Properties["addimg"] = uri_after_upload_file;
+        }
     }
 }
