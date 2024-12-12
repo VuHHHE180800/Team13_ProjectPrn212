@@ -36,14 +36,18 @@ public partial class Team13QlbhContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        var ConnectionString = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetConnectionString("DefaultConnection");
-        optionsBuilder.UseSqlServer(ConnectionString);
+        var congfig = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build();
+        if (!optionsBuilder.IsConfigured)
+        {
+            optionsBuilder.UseSqlServer(congfig.GetConnectionString("DBContext"));
+        }
+
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Brand>(entity =>
         {
-            entity.HasKey(e => e.BrandId).HasName("PK__Brands__AABC2567BCDCEEA2");
+            entity.HasKey(e => e.BrandId).HasName("PK__Brands__AABC2567A59BDAFE");
 
             entity.Property(e => e.BrandId)
                 .ValueGeneratedNever()
@@ -55,7 +59,7 @@ public partial class Team13QlbhContext : DbContext
 
         modelBuilder.Entity<Category>(entity =>
         {
-            entity.HasKey(e => e.CategoryId).HasName("PK__Categori__6DB2813696883AF8");
+            entity.HasKey(e => e.CategoryId).HasName("PK__Categori__6DB28136D9E49F37");
 
             entity.Property(e => e.CategoryId).HasColumnName("Category_id");
             entity.Property(e => e.CategoryName)
@@ -65,13 +69,13 @@ public partial class Team13QlbhContext : DbContext
 
         modelBuilder.Entity<Employee>(entity =>
         {
-            entity.HasKey(e => e.EmployeeId).HasName("PK__Employee__781228D962F87707");
+            entity.HasKey(e => e.EmployeeId).HasName("PK__Employee__781228D90D06B4C8");
 
-            entity.HasIndex(e => e.Phonenumber, "UQ__Employee__9FDCA5A764753CF4").IsUnique();
+            entity.HasIndex(e => e.Phonenumber, "UQ__Employee__9FDCA5A7A5B78761").IsUnique();
 
-            entity.HasIndex(e => e.Email, "UQ__Employee__A9D105341FF4104C").IsUnique();
+            entity.HasIndex(e => e.Email, "UQ__Employee__A9D10534969E8A28").IsUnique();
 
-            entity.HasIndex(e => e.Username, "UQ__Employee__F3DBC5721A522F35").IsUnique();
+            entity.HasIndex(e => e.Username, "UQ__Employee__F3DBC572C09AB007").IsUnique();
 
             entity.Property(e => e.EmployeeId).HasColumnName("Employee_id");
             entity.Property(e => e.Address).HasMaxLength(50);
@@ -83,6 +87,7 @@ public partial class Team13QlbhContext : DbContext
                 .HasColumnName("password");
             entity.Property(e => e.Phonenumber).HasMaxLength(50);
             entity.Property(e => e.RoleId).HasColumnName("Role_id");
+            entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.Username)
                 .HasMaxLength(50)
                 .HasColumnName("username");
@@ -95,7 +100,7 @@ public partial class Team13QlbhContext : DbContext
 
         modelBuilder.Entity<Order>(entity =>
         {
-            entity.HasKey(e => e.OrderId).HasName("PK__Orders__F1FF84538C645330");
+            entity.HasKey(e => e.OrderId).HasName("PK__Orders__F1FF845322C48C56");
 
             entity.Property(e => e.OrderId).HasColumnName("Order_id");
             entity.Property(e => e.CustomerAddress).HasMaxLength(50);
@@ -118,7 +123,7 @@ public partial class Team13QlbhContext : DbContext
 
         modelBuilder.Entity<OrderDetail>(entity =>
         {
-            entity.HasKey(e => new { e.OrderId, e.ProductId }).HasName("PK__Order_de__C87CBBAAB0A6F1C2");
+            entity.HasKey(e => new { e.OrderId, e.ProductId }).HasName("PK__Order_de__C87CBBAA1C011252");
 
             entity.ToTable("Order_detail");
 
@@ -140,7 +145,7 @@ public partial class Team13QlbhContext : DbContext
 
         modelBuilder.Entity<OrderStatus>(entity =>
         {
-            entity.HasKey(e => e.StatusId).HasName("PK__Order_St__5191052474CC5969");
+            entity.HasKey(e => e.StatusId).HasName("PK__Order_St__51910524321AC767");
 
             entity.ToTable("Order_Status");
 
@@ -154,7 +159,7 @@ public partial class Team13QlbhContext : DbContext
 
         modelBuilder.Entity<Product>(entity =>
         {
-            entity.HasKey(e => e.ProductId).HasName("PK__Products__9833FF922D4D4F75");
+            entity.HasKey(e => e.ProductId).HasName("PK__Products__9833FF9270D6FD0E");
 
             entity.Property(e => e.ProductId).HasColumnName("Product_id");
             entity.Property(e => e.BrandId).HasColumnName("Brand_id");
@@ -164,7 +169,7 @@ public partial class Team13QlbhContext : DbContext
                 .HasColumnName("description");
             entity.Property(e => e.Gender).HasColumnName("gender");
             entity.Property(e => e.Photo)
-                .HasMaxLength(50)
+                .HasMaxLength(200)
                 .HasColumnName("photo");
             entity.Property(e => e.Price).HasColumnName("price");
             entity.Property(e => e.ProductName)
@@ -185,7 +190,7 @@ public partial class Team13QlbhContext : DbContext
 
         modelBuilder.Entity<Report>(entity =>
         {
-            entity.HasKey(e => e.ReportId).HasName("PK__Reports__30F991995E9C8DC8");
+            entity.HasKey(e => e.ReportId).HasName("PK__Reports__30F99199E9644AD7");
 
             entity.Property(e => e.ReportId).HasColumnName("Report_id");
             entity.Property(e => e.ReportDate).HasColumnName("Report_date");
@@ -196,7 +201,7 @@ public partial class Team13QlbhContext : DbContext
 
         modelBuilder.Entity<Role>(entity =>
         {
-            entity.HasKey(e => e.RoleId).HasName("PK__Roles__D80BB0939477FF07");
+            entity.HasKey(e => e.RoleId).HasName("PK__Roles__D80BB09308837B5A");
 
             entity.Property(e => e.RoleId)
                 .ValueGeneratedNever()

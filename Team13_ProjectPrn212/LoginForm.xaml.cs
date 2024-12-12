@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Team13_ProjectPrn212.Admin;
 using Team13_ProjectPrn212.Models;
 
 namespace Team13_ProjectPrn212
@@ -33,20 +34,34 @@ namespace Team13_ProjectPrn212
             Employee employee = db.Employees.FirstOrDefault(e => e.Username == username && e.Password == password);
             if (employee != null)
             {
+
                 Application.Current.Properties["employee"] = employee;
-                MessageBox.Show("Đăng nhập thành công !", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+            
                 if (employee.RoleId == 1)
                 {
+                    MessageBox.Show("Wellcome Staff !", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                     MainWindow mainWindow = new MainWindow();
                     mainWindow.Show();
                     this.Close();
                 }
                 else if (employee.RoleId == 2)
                 {
+                    MessageBox.Show("Wellcome Staff !", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                     CreatOrderWindow creatOrderWindow = new CreatOrderWindow();
                     creatOrderWindow.Show();
                     this.Close();
                 }
+                else if(employee.RoleId == 3)
+                {
+                    MessageBox.Show("Wellcome Admin!", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                    HomeAdmin adminhome = new HomeAdmin();
+                    adminhome.Show();
+                    this.Close();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Đăng nhập thất bại !", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
