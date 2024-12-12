@@ -40,5 +40,10 @@ namespace Team13_ProjectPrn212
             Reports reports = new Reports();
             reports.Show();
         }
+
+        private void btnNhanVien_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
