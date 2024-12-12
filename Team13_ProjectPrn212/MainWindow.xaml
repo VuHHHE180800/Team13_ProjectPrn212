@@ -24,7 +24,7 @@
                     <Label FontWeight="DemiBold" Content="Chức năng chính"
                            Foreground="Black" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,10,0,0" />
                     <StackPanel Margin="0,0,0,-32">
-                        <Button Name="btnLoaiSP" FontWeight="DemiBold" Width="120" FontSize="15" Foreground="Black" Content="Loại sản phẩm" HorizontalAlignment="Left"
+                        <Button Name="btnNhanVien" FontWeight="DemiBold" Width="120" FontSize="15" Foreground="Black" Content="Nhân viên" HorizontalAlignment="Left"
                                 Margin="10,40,0,0" VerticalAlignment="Top" />
                         <Button Name="btnSanPham" FontWeight="DemiBold" Width="120" FontSize="15" Foreground="Black" Content="Sản phẩm" HorizontalAlignment="Left"
                                 Margin="10,15,0,0" VerticalAlignment="Top" />
@@ -32,8 +32,7 @@
                                 Margin="10,15,0,0" VerticalAlignment="Top" Click="btnDonHang_Click" />
                         <Button Name="btnBieuDo" FontWeight="DemiBold" Width="120" FontSize="15" Foreground="Black" Content="Biểu đồ" HorizontalAlignment="Left"
                                 Margin="10,15,0,0" VerticalAlignment="Top" Click="btnBieuDo_Click" />
-                        <Button Name="btnNhanVien" FontWeight="DemiBold" Width="120" FontSize="15" Foreground="Black" Content="Nhân viên" HorizontalAlignment="Left"
-                                Margin="10,15,0,0" VerticalAlignment="Top" Click="btnNhanVien_Click" />
+                        
                         <Button Name="btnThoat" FontWeight="DemiBold" Width="120" FontSize="15" Foreground="Black" Content="Đăng xuất" HorizontalAlignment="Left"
                                 Margin="10,15,0,0" VerticalAlignment="Top" Click="btnThoat_Click" />
                     </StackPanel>
