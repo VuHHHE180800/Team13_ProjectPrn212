@@ -5,8 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Team13_ProjectPrn212"
         mc:Ignorable="d"
-        Title="ProductManagementWindow" Height="450" Width="800">
+        Title="ProductManagementWindow" Height="500" Width="1000" WindowStartupLocation="CenterScreen">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="99*"/>
+            <ColumnDefinition Width="201*"/>
+            <ColumnDefinition Width="200*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -14,7 +19,7 @@
         </Grid.RowDefinitions>
 
         <!-- Search and Filter Section -->
-        <StackPanel Orientation="Horizontal" Margin="10" VerticalAlignment="Top">
+        <StackPanel Orientation="Horizontal" Margin="10,0,10,0" VerticalAlignment="Center" Grid.ColumnSpan="2">
             <Grid Width="200">
                 <TextBox x:Name="SearchBox" Margin="0,0,0,0" 
                      Padding="5" FontSize="14" 
@@ -38,7 +43,7 @@
         </StackPanel>
 
         <!-- Action Buttons -->
-        <StackPanel Orientation="Horizontal" Margin="10" Grid.Row="1" HorizontalAlignment="Left">
+        <StackPanel Orientation="Horizontal" Margin="10,10,0,10" Grid.Row="1" HorizontalAlignment="Left" Grid.ColumnSpan="2">
             <Button Content="Add" Width="100" Click="AddButton_Click" 
                 Background="#2196F3" Foreground="White" FontSize="14" 
                 Padding="5" Margin="0,0,10,0"/>
@@ -52,19 +57,42 @@
 
         <!-- DataGrid -->
         <DataGrid x:Name="ProductGrid" Grid.Row="2" AutoGenerateColumns="False" 
-              Margin="10" IsReadOnly="True" 
+              Margin="10,10,43,24" IsReadOnly="True" 
               AlternatingRowBackground="#E8EAF6" 
               RowBackground="White" 
               BorderBrush="#BDBDBD" 
-              BorderThickness="1" CanUserSortColumns="True">
+              BorderThickness="1" CanUserSortColumns="True" Grid.ColumnSpan="2" SelectionChanged="ProductGrid_SelectionChanged">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="ID" Binding="{Binding ProductId}" Width="50"/>
-                <DataGridTextColumn Header="Name" Binding="{Binding ProductName}" Width="200"/>
-                <DataGridTextColumn Header="Category" Binding="{Binding CategoryName}" Width="150"/>
-                <DataGridTextColumn Header="Brand" Binding="{Binding BrandName}" Width="150"/>
-                <DataGridTextColumn Header="Price" Binding="{Binding Price}" Width="100"/>
-                <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="100"/>
+                <DataGridTextColumn Header="ID" Binding="{Binding ProductId}" Width="*"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding ProductName}" Width="*"/>
+                <DataGridTextColumn Header="Category" Binding="{Binding CategoryName}" Width="*"/>
+                <DataGridTextColumn Header="Brand" Binding="{Binding BrandName}" Width="*"/>
+                <DataGridTextColumn Header="Price" Binding="{Binding Price}" Width="*"/>
+                <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
+        <StackPanel Grid.Column="2" Margin="11,9,9,24" Orientation="Vertical" Background="#F5F5F5" Grid.RowSpan="3" >
+            <TextBlock Text="Product Details" FontSize="16" FontWeight="Bold" Margin="0,0,0,10"/>
+            <TextBlock Text="ID:" FontWeight="Bold"/>
+            <TextBox x:Name="DetailProductId"  IsReadOnly="True" Margin="0,0,0,10"/>
+            <TextBlock Text="Name:" FontWeight="Bold"/>
+            <TextBox x:Name="DetailProductName" Margin="0,0,0,10"/>
+            <TextBlock Text="Category:" FontWeight="Bold"/>
+            <ComboBox x:Name="DetailCategory" Margin="0,0,0,10"/>
+            <TextBlock Text="Brand:" FontWeight="Bold"/>
+            <ComboBox x:Name="DetailBrand" Margin="0,0,0,10"/>
+            <TextBlock Text="Price:" FontWeight="Bold"/>
+            <TextBox x:Name="DetailPrice"  Margin="0,0,0,10"/>
+            <TextBlock Text="Quantity:" FontWeight="Bold"/>
+            <TextBox x:Name="DetailQuantity"  Margin="0,0,0,10"/>
+            <TextBlock Text="Description:" FontWeight="Bold"/>
+            <TextBox x:Name="DetailDescription" TextWrapping="Wrap" AcceptsReturn="True" Margin="0,0,0,10"/>
+            <TextBlock Text="Photo:" FontWeight="Bold"/>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                <Button Content="Choose File"  Height="25" Margin="5,0,0,0"/>
+                <TextBox x:Name="PhotoFilePath" IsReadOnly="True" Margin="10,0,0,0" Width="200" Height="25"/>
+                <Image x:Name="DetailPhoto" Height="85" Width="88" Stretch="Uniform" Margin="10,0,0,0"/>
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </Window>

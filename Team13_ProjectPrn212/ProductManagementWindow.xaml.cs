@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Team13_ProjectPrn212.Models;
 
 namespace Team13_ProjectPrn212
 {
@@ -27,6 +28,8 @@ namespace Team13_ProjectPrn212
             _dbContext = new Models.Team13QlbhContext();
             LoadCategories();
             LoadProducts();
+            Category_Load();
+            Brand_Load();
         }
         private void LoadProducts()
         {
@@ -124,32 +127,24 @@ namespace Team13_ProjectPrn212
 
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                var newProduct = new Models.Product
-                {
-                    ProductName = "New Product",
-                    CategoryId = _dbContext.Categories.FirstOrDefault()?.CategoryId ?? 0,
-                    BrandId = _dbContext.Brands.FirstOrDefault()?.BrandId ?? 0,
-                    Price = 0,
-                    Quantity = 0
-                };
+            
+            var product= new Product();
+            product.ProductName = DetailProductName.Text;
+            product.BrandId = int.Parse(DetailBrand.SelectedValue.ToString());
+            product.CategoryId = int.Parse(DetailCategory.SelectedValue.ToString());
+            product.Price = int.Parse(DetailPrice.Text);
+            product.Quantity = int.Parse(DetailQuantity.Text);
+            product.Description = DetailDescription.Text;
 
-                _dbContext.Products.Add(newProduct);
-                _dbContext.SaveChanges();
-                LoadProducts();
-                MessageBox.Show("Product added successfully.");
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error adding product: {ex.Message}");
-            }
+            _dbContext.Products.Add(product);
+            _dbContext.SaveChanges();
+            LoadProducts();
+            MessageBox.Show("Product added successfully.");
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
+            
                 if (ProductGrid.SelectedItem == null)
                 {
                     MessageBox.Show("Please select a product to edit.");
@@ -162,17 +157,17 @@ namespace Team13_ProjectPrn212
                 var productToEdit = _dbContext.Products.FirstOrDefault(p => p.ProductId == productId);
                 if (productToEdit != null)
                 {
-                    productToEdit.ProductName = "Updated Product";
-                    productToEdit.Price = 100;
+                    productToEdit.ProductName = DetailProductName.Text;
+                    productToEdit.BrandId = int.Parse(DetailBrand.SelectedValue.ToString());
+                    productToEdit.CategoryId = int.Parse(DetailCategory.SelectedValue.ToString());
+                    productToEdit.Price = int.Parse(DetailPrice.Text);
+                    productToEdit.Quantity = int.Parse(DetailQuantity.Text);
+                    productToEdit.Description = DetailDescription.Text;
                     _dbContext.SaveChanges();
                     LoadProducts();
                     MessageBox.Show("Product edited successfully.");
                 }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Error editing product: {ex.Message}");
-            }
+            
         }
 
         private void DeleteButton_Click(object sender, RoutedEventArgs e)
@@ -206,5 +201,55 @@ namespace Team13_ProjectPrn212
                 MessageBox.Show($"Error deleting product: {ex.Message}");
             }
         }
+        private void Category_Load()
+        {
+            var categories = _dbContext.Categories.ToList();
+            DetailCategory.ItemsSource = categories;
+            DetailCategory.DisplayMemberPath = "CategoryName";
+            DetailCategory.SelectedValuePath = "CategoryId";
+        }
+        private void Brand_Load()
+        {
+            var brands = _dbContext.Brands.ToList();
+            DetailBrand.ItemsSource = brands;
+            DetailBrand.DisplayMemberPath = "BrandName";
+            DetailBrand.SelectedValuePath = "BrandId";
+        }
+
+        private void ProductGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            dynamic productGrid = ProductGrid.SelectedItem;
+            int productId = productGrid.ProductId;
+            var product = _dbContext.Products.FirstOrDefault(p => p.ProductId == productId);
+            if (product != null)
+            {
+                DetailCategory.SelectedItem = _dbContext.Categories.AsEnumerable().FirstOrDefault(c => c.CategoryId == product.CategoryId);
+                DetailBrand.SelectedItem = _dbContext.Brands.AsEnumerable().FirstOrDefault(b => b.BrandId == product.BrandId);
+                DetailProductId.Text = product.ProductId.ToString();
+                DetailProductName.Text = product.ProductName;
+                DetailPrice.Text = product.Price.ToString();
+                DetailQuantity.Text = product.Quantity.ToString();
+                DetailDescription.Text = product.Description;
+                //DetailPhoto.Source = new BitmapImage(new Uri(product.Photo));
+            }
+            else
+            {
+                MessageBox.Show("Vui lòng chọn một sản phẩm để chỉnh sửa.");
+            }
+        }
+
+        // Helper method to clear details when no product is selected
+        private void ClearDetails()
+        {
+            DetailCategory.SelectedItem = null;
+            DetailBrand.SelectedItem = null;
+            DetailProductId.Clear();
+            DetailProductName.Clear();
+            DetailPrice.Clear();
+            DetailQuantity.Clear();
+            DetailDescription.Clear();
+            DetailPhoto.Source = null;
+        }
+
     }
 }
