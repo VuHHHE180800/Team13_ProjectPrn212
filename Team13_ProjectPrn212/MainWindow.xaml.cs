@@ -34,5 +34,11 @@ namespace Team13_ProjectPrn212
             DonHang donHang = new DonHang();
             donHang.Show();
         }
+
+        private void btnBieuDo_Click(object sender, RoutedEventArgs e)
+        {
+            Reports reports = new Reports();
+            reports.Show();
+        }
     }
 }

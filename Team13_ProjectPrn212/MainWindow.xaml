@@ -31,7 +31,7 @@
                         <Button Name="btnDonHang" FontWeight="DemiBold" Width="120" FontSize="15" Foreground="Black" Content="Đơn Hàng" HorizontalAlignment="Left"
                                 Margin="10,15,0,0" VerticalAlignment="Top" Click="btnDonHang_Click" />
                         <Button Name="btnBieuDo" FontWeight="DemiBold" Width="120" FontSize="15" Foreground="Black" Content="Biểu đồ" HorizontalAlignment="Left"
-                                Margin="10,15,0,0" VerticalAlignment="Top" />
+                                Margin="10,15,0,0" VerticalAlignment="Top" Click="btnBieuDo_Click" />
                         <Button Name="btnThoat" FontWeight="DemiBold" Width="120" FontSize="15" Foreground="Black" Content="Đăng xuất" HorizontalAlignment="Left"
                                 Margin="10,15,0,0" VerticalAlignment="Top" Click="btnThoat_Click" />
                     </StackPanel>
