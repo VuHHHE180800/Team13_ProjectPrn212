@@ -45,5 +45,13 @@ namespace Team13_ProjectPrn212
         {
 
         }
+
+        private void btnSanPham_Click(object sender, RoutedEventArgs e)
+        {
+            ProductManagementWindow productManagementWindow = new ProductManagementWindow();
+            productManagementWindow.Show();
+        }
+
+       
     }
 }

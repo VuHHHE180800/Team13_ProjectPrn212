@@ -1,0 +1,70 @@
+﻿<Window x:Class="Team13_ProjectPrn212.ProductManagementWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Team13_ProjectPrn212"
+        mc:Ignorable="d"
+        Title="ProductManagementWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- Search and Filter Section -->
+        <StackPanel Orientation="Horizontal" Margin="10" VerticalAlignment="Top">
+            <Grid Width="200">
+                <TextBox x:Name="SearchBox" Margin="0,0,0,0" 
+                     Padding="5" FontSize="14" 
+                     GotFocus="SearchBox_GotFocus" LostFocus="SearchBox_LostFocus"/>
+                <TextBlock Text="Search by name or ID" 
+                       Foreground="#A0A0A0" 
+                       VerticalAlignment="Center" 
+                       Margin="5,0,0,0" 
+                       IsHitTestVisible="False" 
+                       x:Name="PlaceholderText" 
+                       Visibility="Visible"/>
+            </Grid>
+            <ComboBox x:Name="CategoryFilter" Width="150" Margin="0,0,10,0"
+                  SelectionChanged="CategoryFilter_SelectionChanged"
+                  FontSize="14">
+                <ComboBoxItem Content="All Categories"/>
+            </ComboBox>
+            <Button Content="Search" Width="100" Click="SearchButton_Click" 
+                Background="#4CAF50" Foreground="White" FontSize="14" 
+                Padding="5"/>
+        </StackPanel>
+
+        <!-- Action Buttons -->
+        <StackPanel Orientation="Horizontal" Margin="10" Grid.Row="1" HorizontalAlignment="Left">
+            <Button Content="Add" Width="100" Click="AddButton_Click" 
+                Background="#2196F3" Foreground="White" FontSize="14" 
+                Padding="5" Margin="0,0,10,0"/>
+            <Button Content="Edit" Width="100" Click="EditButton_Click" 
+                Background="#FFC107" Foreground="Black" FontSize="14" 
+                Padding="5" Margin="0,0,10,0"/>
+            <Button Content="Delete" Width="100" Click="DeleteButton_Click" 
+                Background="#F44336" Foreground="White" FontSize="14" 
+                Padding="5"/>
+        </StackPanel>
+
+        <!-- DataGrid -->
+        <DataGrid x:Name="ProductGrid" Grid.Row="2" AutoGenerateColumns="False" 
+              Margin="10" IsReadOnly="True" 
+              AlternatingRowBackground="#E8EAF6" 
+              RowBackground="White" 
+              BorderBrush="#BDBDBD" 
+              BorderThickness="1" CanUserSortColumns="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="ID" Binding="{Binding ProductId}" Width="50"/>
+                <DataGridTextColumn Header="Name" Binding="{Binding ProductName}" Width="200"/>
+                <DataGridTextColumn Header="Category" Binding="{Binding CategoryName}" Width="150"/>
+                <DataGridTextColumn Header="Brand" Binding="{Binding BrandName}" Width="150"/>
+                <DataGridTextColumn Header="Price" Binding="{Binding Price}" Width="100"/>
+                <DataGridTextColumn Header="Quantity" Binding="{Binding Quantity}" Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
