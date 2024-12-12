@@ -48,6 +48,10 @@ namespace Team13_ProjectPrn212
                     this.Close();
                 }
             }
+            else
+            {
+                MessageBox.Show("Đăng nhập thất bại. !", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
     }
 }
