@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Team13_ProjectPrn212.Admin;
 using Team13_ProjectPrn212.Models;
 
 namespace Team13_ProjectPrn212
@@ -34,15 +35,17 @@ namespace Team13_ProjectPrn212
             if (employee != null)
             {
                 Application.Current.Properties["employee"] = employee;
-                MessageBox.Show("Đăng nhập thành công !", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                
                 if (employee.RoleId == 1)
                 {
-                    MainWindow mainWindow = new MainWindow();
-                    mainWindow.Show();
+                    MessageBox.Show("Welcome Admin !", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
+                  HomeAdmin     homeAdmin = new HomeAdmin();
+                    homeAdmin.Show();
                     this.Close();
                 }
                 else if (employee.RoleId == 2)
                 {
+                    MessageBox.Show("Welcome Staff !", "Thông báo", MessageBoxButton.OK, MessageBoxImage.Information);
                     CreatOrderWindow creatOrderWindow = new CreatOrderWindow();
                     creatOrderWindow.Show();
                     this.Close();

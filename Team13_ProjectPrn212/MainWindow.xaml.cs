@@ -41,10 +41,6 @@ namespace Team13_ProjectPrn212
             reports.Show();
         }
 
-        private void btnNhanVien_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private void btnSanPham_Click(object sender, RoutedEventArgs e)
         {
