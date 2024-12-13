@@ -31,7 +31,7 @@ namespace Team13_ProjectPrn212.Admin
         }
         private void LoadEmployees()
         {
-            var employees = _context.Employees.ToList();
+            var employees = _context.Employees.Where(e => e.RoleId == 2).ToList();
             dgProducts.ItemsSource = employees;
         }
 
@@ -90,9 +90,17 @@ namespace Team13_ProjectPrn212.Admin
             var selectedEmployee = dgProducts.SelectedItem as Employee;
             if (selectedEmployee != null)
             {
-                _context.Employees.Remove(selectedEmployee);
-                _context.SaveChanges();
-                LoadEmployees();
+                MessageBoxResult result = MessageBox.Show("Are you sure you want to delete this employee?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                if (result == MessageBoxResult.Yes)
+                {
+                    _context.Employees.Remove(selectedEmployee);
+                    _context.SaveChanges();
+                    LoadEmployees();
+                }
+                else {
+                    LoadEmployees();
+                }
+
             }
         }
 
@@ -104,6 +112,13 @@ namespace Team13_ProjectPrn212.Admin
             txtEmail.Clear();
             txtPhone.Clear();
             dpEndDate.SelectedDate = null;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            HomeAdmin homeAdmin = new HomeAdmin();
+            homeAdmin.Show();
+            this.Hide();
         }
     }
 }

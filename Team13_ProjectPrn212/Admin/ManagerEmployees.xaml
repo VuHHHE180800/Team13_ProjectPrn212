@@ -82,11 +82,14 @@
                     <DatePicker x:Name="dpEndDate" Style="{StaticResource StyledDatePicker}" Width="163"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Margin="5">
+                    
                     <Button x:Name="btnAdd" Content="Create" Background="LightGreen"  Width="50" Margin="0 0 10 0" Click="btnAdd_Click"/>
                     <Button x:Name="btnUpdate" Content="Update" Background="LightBlue"  Width="50" Margin="0 0 10 0" Click="btnUpdate_Click"/>
                     <Button x:Name="btnDelete" Content="Delete" Background="LightPink" Width="50" Margin="0 0 10 0" Click="btnDelete_Click"/>
                     <Button x:Name="btnClear" Content="Clear" Background="#FFEA6378"  Width="50" Click="btnClear_Click"/>
                 </StackPanel>
+                <Button Content="Home" Background="Gold" Click="Button_Click"/>
+
             </StackPanel>
         </Grid>
 

@@ -56,8 +56,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1" RenderTransformOrigin="0.504,0.055">
-            <Button Name="btnUserManagement" Content="User Management" Style="{StaticResource ShadowButtonStyle}" 
-            Click="btnUserManagement_Click"/>
+          
             <Button Name="btnReportManagement" Content="Manage" Style="{StaticResource ShadowButtonStyle}" 
             Click="btnReportManagement_Click"/>
             <Button Name="btnSalesmanagnment" Content="Sales Managent" Style="{StaticResource ShadowButtonStyle}" 

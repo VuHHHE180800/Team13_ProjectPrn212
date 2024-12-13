@@ -23,10 +23,7 @@ namespace Team13_ProjectPrn212.Admin
         {
             InitializeComponent();
         }
-        private void btnUserManagement_Click(object sender, RoutedEventArgs e)
-        {
-            
-        }
+      
 
         private void btnReportManagement_Click(object sender, RoutedEventArgs e)
         {

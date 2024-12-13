@@ -53,6 +53,7 @@
             <Button Content="Delete" Width="100" Click="DeleteButton_Click" 
                 Background="#F44336" Foreground="White" FontSize="14" 
                 Padding="5"/>
+            
         </StackPanel>
 
         <!-- DataGrid -->
